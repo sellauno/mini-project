@@ -12,6 +12,11 @@ app = Flask(__name__)
 def home():
    return render_template('index.html')
 
+@app.route("/read",methods=["GET"])
+def read_data():
+    sleep_list=list(db.bucket.find({},{'_id':False}))
+    return jsonify({'sleep':sleep_list})
+
 @app.route("/create", methods=["POST"])
 def create_data():
     # sample_receive = request.form['sample_give']
