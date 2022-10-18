@@ -91,29 +91,48 @@
     </style>
     <script>
         $(document).ready(function () {
-            show_bucket();
+            show();
         });
         function show() {
             $.ajax({
                 type: "GET",
-                url: "/",
+                url: "/read",
                 data: {},
                 success: function (response) {
-                    
-
+                    let table=response['sleep']
+                    for (let i=0;i<table.length;i++){
+                        let date=table[i]['date']
+                        let time=table[i]['time']
+                        let edit=table[i]['edit']
+                        if(edit==0){
+                            var temp_html=`<li>
+            <h2>${date}---${time}</h2>
+            <button onclick="edit(${date})" type="button" class="btn btn-outline-primary">Edit</button>
+            <button onclick="del(${date})" type="button" class="btn btn-outline-danger">Delete</button>
+        </li>`
+                        }else{
+                            var temp_html=`<div class="mybucket">
+            <h2>${date}---<h2>
+            <input type="time" class="form-control" name="jam" id="edit_jam">
+            <button onclick="update(${date})" type="button" class="btn btn-outline-primary">Update</button>
+            <button onclick="cancel(${date})" type="button" class="btn btn-outline-danger">Cancel</button>
+        </div>`
+                        }
+                        $('#bucket-list').append(temp_html)
                 }
-            });
+            }});
         }
         function save() {
             let mydate = $('#tanggal').val()
             let mytime = $('#jam').val()
-
+            let edit=0
             $.ajax({
                 type: "POST",
                 url: "/create",
                 data: {
                     mydate: mydate,
-                    mytime: mytime
+                    mytime: mytime,
+                    edit:edit
                 },
                 success: function (response) {
                     alert(response["msg"])
@@ -150,7 +169,7 @@
         function update(date) { //1
             $.ajax({
                 type: "POST",
-                url: "/delete",
+                url: "/update",
                 data: {
                     num_give: num //2
                 },
@@ -163,7 +182,7 @@
         function cancel(date) { //1
             $.ajax({
                 type: "POST",
-                url: "/delete",
+                url: "/cancel",
                 data: {
                     num_give: num //2
                 },
@@ -189,11 +208,7 @@
     </div>
 
     <div class="mybox" id="bucket-list">
-        <li>
-            <h2>2022/10/18---23:40</h2>
-            <button onclick="edit(20221018)" type="button" class="btn btn-outline-primary">Edit</button>
-            <button onclick="del(20221018)" type="button" class="btn btn-outline-danger">Delete</button>
-        </li>
+        
     </div>
 </body>
 </html>
