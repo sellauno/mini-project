@@ -105,17 +105,20 @@
             });
         }
         function save() {
-            let bucket = $('#bucket').val()
+            let mydate = $('#tanggal').val()
+            let mytime = $('#jam').val()
+
             $.ajax({
                 type: "POST",
-                url: "/save",
+                url: "/create",
                 data: {
-                    bucket_give: bucket
+                    mydate: mydate,
+                    mytime: mytime
                 },
                 success: function (response) {
-                    // alert(response["msg"])
+                    alert(response["msg"])
                     window.location.reload()
-                }
+                },
             });
         }
         function edit(date) { //1
@@ -177,10 +180,10 @@
     <div class="mypic">
         <h1>Sleep Time Tracker</h1>
     </div>
-    <div class="mybox">
+    <div class="mybox" id="">
         <div class="mybucket">
-            <input type="date" class="form-control" name="" id="tanggal">
-            <input type="time" class="form-control" name="" id="jam">
+            <input type="date" class="form-control" name="tanggal" id="tanggal">
+            <input type="time" class="form-control" name="jam" id="jam">
             <button onclick="save()" type="button" class="btn btn-outline-primary">Save</button>
         </div>
     </div>
