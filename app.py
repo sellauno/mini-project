@@ -23,15 +23,9 @@ def create_data():
     # sample_receive = request.form['sample_give']
     mydate = request.form['mydate']
     mytime = request.form['mytime']
-    count = db.bucket.count_documents({})
-    id = count + 1
-
-    num = datetime.datetime.now()
-    num.isoformat()
-
+    id=int(mydate.replace('-',''))
     doc = {
         'id': id,
-        'num': num,
         'date': mydate,
         'time': mytime,
     }
@@ -50,6 +44,11 @@ def update_data():
         )
     return jsonify({'msg': 'POST /bucket/done request!'})
 
+@app.route("/delete", methods=["POST"])
+def delete_data():
+    id_receive = request.form['id_give']    
+    db.bucket.delete_one({'id':int(id_receive)})
+    return jsonify({'msg':'delete'})
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)
