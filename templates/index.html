@@ -152,14 +152,13 @@
         function save() {
             let mydate = $('#tanggal').val()
             let mytime = $('#jam').val()
-            let edit=0
+            
             $.ajax({
                 type: "POST",
                 url: "/create",
                 data: {
                     mydate: mydate,
-                    mytime: mytime,
-                    edit:edit
+                    mytime: mytime
                 },
                 success: function (response) {
                     alert(response["msg"])
@@ -167,25 +166,13 @@
                 },
             });
         }
-        function edit(date) { //1
-            $.ajax({
-                type: "POST",
-                url: "/edit",
-                data: {
-                    num_give: num //2
-                },
-                success: function (response) {
-                    // alert(response["msg"])
-                    window.location.reload()
-                }
-            });
-        }
-        function del(date) { //1
+        
+        function del(x) {
             $.ajax({
                 type: "POST",
                 url: "/delete",
                 data: {
-                    num_give: num //2
+                    "id_give":x
                 },
                 success: function (response) {
                     // alert(response["msg"])
@@ -210,19 +197,7 @@
                 },
             });
         }
-        function cancel(date) { //1
-            $.ajax({
-                type: "POST",
-                url: "/cancel",
-                data: {
-                    num_give: num //2
-                },
-                success: function (response) {
-                    // alert(response["msg"])
-                    window.location.reload()
-                }
-            });
-        }
+        
     </script>
 </head>
 
