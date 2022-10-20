@@ -1,6 +1,6 @@
 from pyclbr import Function
 from pydoc import doc
-from flask import Flask, render_template, request, jsonify,session, redirect, url_for
+from flask import Flask, render_template, request, jsonify,session, redirect, url_for,flash
 from pymongo import MongoClient
 
 # import bcrypt
@@ -67,8 +67,8 @@ def login():
         if request.form['password'] == login_user['password']:
             session['username'] = request.form['username']
             return redirect(url_for('index'))
-
-    return 'Invalid username/password combination'
+    flash('Username or Password not match with our records!')
+    return render_template('login.html', error='Invalid credentials')
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -81,7 +81,8 @@ def register():
             session['username'] = request.form['username']
             return redirect(url_for('index'))
         
-        return 'That username already exists!'
+        flash('That username already exists!')
+        return render_template('register.html')
 
     return render_template('register.html')
 
