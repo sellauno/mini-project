@@ -13,6 +13,7 @@
                     let date = table[i]['date']
                     let time = table[i]['time']
                     let id = table[i]['id']
+                    let username = table[i]['username']
                     var temp_html = `
                     <li>
                         <h2>${date}---${time}</h2>
@@ -39,7 +40,9 @@
                                 </div>
                             </div>
                     </li>`
-                    $('#bucket-list').append(temp_html)
+                    if (username == response['username']) {
+                        $('#bucket-list').append(temp_html)
+                    }
                 }
             }
         });
