@@ -20,6 +20,7 @@ def index():
 
 @app.route("/read",methods=["GET"])
 def read_data():
+    username = session['username']
     sleep_list=list(db.bucket.find({},{'_id':False}))
     return jsonify({'sleep':sleep_list, 'username':session['username']})
 
@@ -37,7 +38,7 @@ def create_data():
         'id': id,
         'date': mydate,
         'time': mytime,
-        'username': username,
+        'username' : username,
     }
     db.bucket.insert_one(doc)
     return jsonify({'msg': 'data saved!'})

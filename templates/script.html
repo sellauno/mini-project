@@ -9,14 +9,24 @@
             data: {},
             success: function (response) {
                 let table = response['sleep']
+
                 for (let i = 0; i < table.length; i++) {
                     let date = table[i]['date']
                     let time = table[i]['time']
                     let id = table[i]['id']
+                    let usr
+                    if (table[i]['username'] != null) {
+                        usr = table[i]['username']
+                    } else {
+                        usr = 'no user'
+                    }
+
+
+
                     let username = table[i]['username']
                     var temp_html = `
                     <li>
-                        <h2>${date}---${time}</h2>
+                        <h2>${date}---${time}--${usr}</h2>
                         <button onclick="del(${id})" type="button" class="btn btn-outline-danger">Delete</button>
                         <button type="button" class="btn btn-outline-primary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal${id}">Edit</button>
                             <!-- Modal -->
