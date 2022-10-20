@@ -56,8 +56,16 @@
                 mytime: mytime
             },
             success: function (response) {
-                alert(response["msg"])
-                window.location.reload()
+                // alert(response["msg"])
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Data has been saved',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((result) => {
+                    window.location.reload()
+                })
             },
         });
     }
@@ -71,7 +79,16 @@
             },
             success: function (response) {
                 // alert(response["msg"])
-                window.location.reload()
+                // window.location.reload()
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Data has been deleted',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then((result) => {
+                    window.location.reload()
+                })
             }
         });
     }

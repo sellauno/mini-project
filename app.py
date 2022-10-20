@@ -3,7 +3,7 @@ from pydoc import doc
 from flask import Flask, render_template, request, jsonify,session, redirect, url_for
 from pymongo import MongoClient
 
-import bcrypt
+# import bcrypt
 import datetime
 
 client = MongoClient('mongodb+srv://test:sparta@cluster0.gfvlmzn.mongodb.net/?retryWrites=true&w=majority')
@@ -14,8 +14,8 @@ app = Flask(__name__)
 @app.route('/')
 def index():
    if 'username' in session:
-        return render_template('index.html')
-   
+    return render_template('index.html')
+
    return render_template('login.html')
 
 @app.route("/read",methods=["GET"])
