@@ -1,0 +1,96 @@
+<script>
+    $(document).ready(function () {
+        show();
+    });
+    function show() {
+        $.ajax({
+            type: "GET",
+            url: "/read",
+            data: {},
+            success: function (response) {
+                let table = response['sleep']
+                for (let i = 0; i < table.length; i++) {
+                    let date = table[i]['date']
+                    let time = table[i]['time']
+                    let id = table[i]['id']
+                    var temp_html = `
+                    <li>
+                        <h2>${date}---${time}</h2>
+                        <button onclick="del(${id})" type="button" class="btn btn-outline-danger">Delete</button>
+                        <button type="button" class="btn btn-outline-primary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal${id}">Edit</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal${id}" 
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5">Update Data</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="date" class="form-control" id="tanggalup${id}" value="${date}">
+                                            <input type="time" class="form-control" id="jamup${id}" value="${time}">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button onclick="update(${id})" type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </li>`
+                    $('#bucket-list').append(temp_html)
+                }
+            }
+        });
+    }
+    function save() {
+        let mydate = $('#tanggal').val()
+        let mytime = $('#jam').val()
+
+        $.ajax({
+            type: "POST",
+            url: "/create",
+            data: {
+                mydate: mydate,
+                mytime: mytime
+            },
+            success: function (response) {
+                alert(response["msg"])
+                window.location.reload()
+            },
+        });
+    }
+
+    function del(x) {
+        $.ajax({
+            type: "POST",
+            url: "/delete",
+            data: {
+                "id_give": x
+            },
+            success: function (response) {
+                // alert(response["msg"])
+                window.location.reload()
+            }
+        });
+    }
+    function update(num) { //1
+        let date = $('#tanggalup' + num).val()
+        let time = $('#jamup' + num).val()
+        $.ajax({
+            type: "POST",
+            url: "/update",
+            data: {
+                "date_give": date,
+                "time_give": time,
+                "id_give": num
+            },
+            success: function (response) {
+                // alert(response["msg"])
+                window.location.reload()
+            },
+        });
+    }
+
+</script>
