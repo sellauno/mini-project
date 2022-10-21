@@ -20,7 +20,7 @@
                     {% endif %}
                     {% endwith %}
 
-                    <form class="mt-3" method=POST action="{{ url_for('login') }}">
+                    <form class="mt-3" method=POST action="{{ url_for('login') }}" autocomplete="off">
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <input type="text" id="username" name="username" class="form-control" autofocus

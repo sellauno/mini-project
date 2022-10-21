@@ -3,10 +3,9 @@
 
 <div class="mybox" id="user-profile">
     <li>
-        <!-- <i class="fa-user-circle" style="font-size:24px"></i> -->
-        
-        <h2>{{ session['username'] }}</h2>
-        <a href="/logout" type="button" class="btn btn-danger">Logout</a></li>
+        <h2><i class="bi bi-person-fill"></i>&nbsp; {{ session['username'] }}</h2>
+        <a href="/logout" type="button" class="btn btn-danger"><i class="bi bi-box-arrow-left"></i> Logout</a>
+    </li>
     
 </div>
 
